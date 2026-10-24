@@ -29,7 +29,7 @@
 </link>
 
 <joint name="base_link_joint" type="fixed">
-<origin rpy="0 0 0" xyz="0 0 0.0951"/>
+<origin rpy="0 0 0" xyz="0 0 0.0995"/>
 <parent link="base_link"/>
 <child link="base_body"/>
 </joint>
@@ -48,7 +48,7 @@
 </link>
 
 <joint name="joint_wheel_right" type="continuous">
-<origin rpy="0 0 0" xyz="0.0 -0.150 -0.0775"/>
+<origin rpy="0 0 0" xyz="0.0 -0.150 -0.0643"/>
 <parent link="base_body"/>
 <child link="base_wheel_right"/>
 <axis xyz="0 1 0"/>
@@ -61,17 +61,121 @@
 <geometry>
 <cylinder length="0.0206" radius="0.0352"/>
 </geometry>
-<material name="gray"/>
+<material name="rubber_black"/>
 </visual>
 </link>
 
 <joint name="joint_wheel_left" type="continuous">
-<origin rpy="0 0 0" xyz="0.0 0.150 -0.0775"/>
+<origin rpy="0 0 0" xyz="0.0 0.150 -0.0643"/>
 <parent link="base_body"/>
 <child link="base_wheel_left"/>
 <axis xyz="0 1 0"/>
 </joint>
 
+<!-- _________________________ Caster Wheels __________________________ -->
+<!--Caster front-->
+<link name="front_yaw_link">
+<visual>
+<origin rpy="0 0 0" xyz="0 0 0"/>
+<geometry>
+<cylinder length="0.002" radious="0.005"/>
+</geometry>
+<material name="blue"/>
+</visual>
+</link>
+
+<joint name="front_yaw_joint" type="continuous">
+<origin rpy="0 0 0" xyz="0.120 0 -0.0753"/>
+<parent link="base_body"/>
+<child link="front_yaw_link"/>
+<axis xyz="0 0 1"/>
+</joint>
+
+<link name="front_roll_link">
+<visual>
+<origin rpy="0 1.5707 0" xyz="0 0 0"/>
+<geometry>
+<cylinder length ="0.002" radius="0.005"/>
+</geometry>
+<material name="gray"/>
+</visual>
+</link>
+
+<joint name="front_roll_joint" type="continuous">
+<origin rpy="0 0 0" xyz="0 0 0"/>
+<parent link="front_yaw_link"/>
+<child link="front_roll_link"/>
+<axis xyz="1 0 0"/>
+</joint>
+
+<link name="front_pitch_link">
+<visual>
+<origin rpy="0 0 0" xyz="0 0 0"/>
+<geometry>
+<sphere radius="0.0242"/>
+</geometry>
+<material name="gray"/>
+</visual>
+</link>
+
+<joint name="front_pitch_joint" type="continuous">
+<origin rpy="0 0 0" xyz="0 0 0" />
+<parent link="front_roll_link" />
+<child link="front_pitch_link" />
+<axis xyz="0 1 0" />
+</joint>
+
+<!-- Caster Wheel back -->
+<link name="back_yaw_link">
+<visual>
+<origin rpy="0 0 0" xyz="0 0 0"/>
+<geometry>
+<cylinder length="0.002" radious="0.005"/>
+</geometry>
+<material name="blue"/>
+</visual>
+</link>
+
+<joint name="back_yaw_joint" type="continuous">
+<origin rpy="0 0 0" xyz="-0.120 0 -0.0753"/>
+<parent link="base_body"/>
+<child link="back_yaw_link"/>
+<axis xyz="0 0 1"/>
+</joint>
+
+<link name="back_roll_link">
+<visual>
+<origin rpy="0 1.5707 0" xyz="0 0 0"/>
+<geometry>
+<cylinder length ="0.002" radius="0.005"/>
+</geometry>
+<material name="gray"/>
+</visual>
+</link>
+
+<joint name="back_roll_joint" type="continuous">
+<origin rpy="0 0 0" xyz="0 0 0"/>
+<parent link="back_yaw_link"/>
+<child link="back_roll_link"/>
+<axis xyz="1 0 0"/>
+</joint>
+
+<link name="back_pitch_link">
+<visual>
+<origin rpy="0 0 0" xyz="0 0 0"/>
+<geometry>
+<sphere radius="0.0242"/>
+</geometry>
+<material name="gray"/>
+</visual>
+</link>
+
+<joint name="back_pitch_joint" type="continuous">
+<origin rpy="0 0 0" xyz="0 0 0" />
+<parent link="back_roll_link" />
+<child link="back_pitch_link" />
+<axis xyz="0 1 0" />
+</joint>
 
 <!-- ___________________________Standoff rods______________________________________-->
 <!--Right positive-->
