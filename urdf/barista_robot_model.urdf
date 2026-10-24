@@ -1,0 +1,158 @@
+<?xml version="1.0"?>
+<robot name="barista_robot">
+
+<!-- ____________________________ Materials defined for this robot____________-->
+<material name="blue">
+<color rgba="0.0 0.0 1.0 1"/>
+</material>
+
+<material name="gray">
+<color rgba="0.5 0.5 0.5 1"/>
+</material> 
+
+<material name="rubber_black">
+<color rgba="0.05 0.05 0.05 1"/>
+</material>
+
+<!-- ____________________________ Link base______________________________________ -->
+<link name="base_link">
+</link>
+
+
+<link name="base_body">
+<visual>
+<geometry>
+<cylinder length="0.155" radius="0.178"/>
+</geometry>
+<material name="blue"/>
+</visual>
+</link>
+
+<joint name="base_link_joint" type="fixed">
+<origin rpy="0 0 0" xyz="0 0 0.0951"/>
+<parent link="base_link"/>
+<child link="base_body"/>
+</joint>
+
+<!--____________________________WHeels robot_______________________________________-->
+<!--Right Wheel-->
+<link name="base_wheel_right">
+<visual>
+<origin rpy="1.5707 0 0" xyz="0 0 0"/>
+<geometry>
+<!-- cylinders aligned along axis Z, rotate around x (90/pi)-->
+<cylinder length="0.0206" radius="0.0352"/>
+</geometry>
+<material name="rubber_black"/>
+</visual>
+</link>
+
+<joint name="joint_wheel_right" type="continuous">
+<origin rpy="0 0 0" xyz="0.0 -0.150 -0.0775"/>
+<parent link="base_body"/>
+<child link="base_wheel_right"/>
+<axis xyz="0 1 0"/>
+</joint>
+
+<!--Left Wheel-->
+<link name="base_wheel_left">
+<visual>
+<origin rpy="1.5707 0 0" xyz="0 0 0"/>
+<geometry>
+<cylinder length="0.0206" radius="0.0352"/>
+</geometry>
+<material name="gray"/>
+</visual>
+</link>
+
+<joint name="joint_wheel_left" type="continuous">
+<origin rpy="0 0 0" xyz="0.0 0.150 -0.0775"/>
+<parent link="base_body"/>
+<child link="base_wheel_left"/>
+<axis xyz="0 1 0"/>
+</joint>
+
+
+<!-- ___________________________Standoff rods______________________________________-->
+<!--Right positive-->
+<link name="base_standoff_right_positive">
+<visual>
+<geometry>
+<cylinder length="0.220" radius="0.010"/>
+</geometry>
+<material name="gray"/>
+</visual>
+</link>
+
+<joint name="joint_standoff_right_positive" type="fixed">
+<origin rpy="0 0 0" xyz="0.090 0.080 0.1875"/>
+<parent link="base_body"/>
+<child link="base_standoff_right_positive"/>
+</joint>
+
+<!--Right negative-->
+<link name="base_standoff_right_negative">
+<visual>
+<geometry>
+<cylinder length="0.220" radius="0.010"/>
+</geometry>
+<material name="gray"/>
+</visual>
+</link>
+
+<joint name="joint_standoff_right_negative" type="fixed">
+<origin rpy="0 0 0" xyz="0.090 -0.080 0.1875"/>
+<parent link="base_body"/>
+<child link="base_standoff_right_negative"/>
+</joint>
+
+<!--Left positive-->
+<link name="base_standoff_left_positive">
+<visual>
+<geometry>
+<cylinder length="0.220" radius="0.010"/>
+</geometry>
+<material name="gray"/>
+</visual>
+</link>
+
+<joint name="joint_standoff_left_positive" type="fixed">
+<origin rpy="0 0 0" xyz="-0.090 0.080 0.1875"/>
+<parent link="base_body"/>
+<child link="base_standoff_left_positive"/>
+</joint>
+
+<!--Left negative-->
+<link name="base_standoff_left_negative">
+<visual>
+<geometry>
+<cylinder length="0.220" radius="0.010"/>
+</geometry>
+<material name="gray"/>
+</visual>
+</link>
+
+<joint name="joint_standoff_left_negative" type="fixed">
+<origin rpy="0 0 0" xyz="-0.090 -0.080 0.1875"/>
+<parent link="base_body"/>
+<child link="base_standoff_left_negative"/>
+</joint>
+
+<!--_________________________________Base Head________________________________-->
+<link name="base_head">
+<visual>
+<geometry>
+<cylinder length="0.090" radius="0.160"/>
+</geometry>
+<material name="blue"/>
+</visual>
+</link>
+
+<joint name="joint_head_right_positive" type="fixed">
+<origin rpy="0 0 0" xyz="0 0 0.3425"/>
+<child link="base_head"/>
+<parent link="base_body"/>
+</joint>
+
+
+</robot>
