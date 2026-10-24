@@ -78,7 +78,7 @@
 <visual>
 <origin rpy="0 0 0" xyz="0 0 0"/>
 <geometry>
-<cylinder length="0.002" radious="0.005"/>
+<cylinder length="0.002" radius="0.005"/>
 </geometry>
 <material name="blue"/>
 </visual>
@@ -130,7 +130,7 @@
 <visual>
 <origin rpy="0 0 0" xyz="0 0 0"/>
 <geometry>
-<cylinder length="0.002" radious="0.005"/>
+<cylinder length="0.002" radius="0.005"/>
 </geometry>
 <material name="blue"/>
 </visual>
@@ -256,6 +256,25 @@
 <origin rpy="0 0 0" xyz="0 0 0.3425"/>
 <child link="base_head"/>
 <parent link="base_body"/>
+</joint>
+
+<!--________________________________Sensor add in this section-->
+<!--Laser scan-->
+<link name="laser_scan_link">
+<visual>
+<origin rpy="0 0 0" xyz="0 0 0"/>
+<geometry>
+<mesh filename="package://barista_robot_description/meshes/slamtec_rplidar_a2m8.dae" scale="1 1 1"/>
+</geometry>
+</visual>
+</link>
+
+<joint name="laser_scan_link_joint" type="prismatic">
+<origin rpy="0 0 0" xyz="0.110 0 0.0775"/>
+<parent link="base_body"/>
+<child link="laser_scan_link"/>
+<limit lower="-0.1" upper="0.0" effort="20.0" velocity="2.0"/>
+<dynamics damping="0.1" friction="1.0"/>
 </joint>
 
 
