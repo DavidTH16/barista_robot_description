@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+ 
+<xacro:macro name="standoff_rod" params="standoff_pos radius length x_pos y_pos">
+
+<link name="base_standoff_${standoff_pos}">
+<visual>
+<geometry>
+<cylinder length="${length}" radius="${radius}"/>
+</geometry>
+<material name="gray"/>
+</visual>
+
+<collision>
+<origin xyz="0 0 0" rpy="0 0 0"/>
+<geometry>
+<cylinder length="${length}" radius="${radius}"/>
+</geometry>
+</collision>
+<inertial>
+<mass value="0.18"/>
+<origin xyz="0 0 0" rpy="0 0 0"/>
+<inertia 
+ixx="7.305e-04" ixy="0.0" ixz="0.0" 
+iyy="7.305e-04" iyz="0.0" 
+izz="9.0e-06"/>
+</inertial>
+</link>
+
+<joint name="joint_standoff_${standoff_pos}" type="fixed">
+<origin rpy="0 0 0" xyz="${x_pos} ${y_pos} 0.1875"/>
+<parent link="base_body"/>
+<child link="base_standoff_${standoff_pos}"/>
+</joint>
+
+</xacro:macro>
+
+ </robot>
