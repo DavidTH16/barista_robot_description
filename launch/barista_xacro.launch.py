@@ -2,7 +2,7 @@ import os
 from ament_index_python.packages import (get_package_prefix, get_package_share_directory)
 from launch import LaunchDescription
 from launch.actions import (DeclareLaunchArgument, IncludeLaunchDescription)
-from launch.substitutions import (PathJoinSubstitution, LaunchConfiguration)
+from launch.substitutions import (PathJoinSubstitution, LaunchConfiguration, Command)
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch_ros.actions import SetParameter, Node
 
@@ -46,6 +46,12 @@ def generate_launch_description():
     xacro.process_doc(doc)
     params = {'robot_description': doc.toxml()}
 
+    #
+    declare_include_laser = DeclareLaunchArgument(
+        "include_laser",
+        default_value="true",
+        description="Include the laser scanner in the URDF"
+    )
     
     # Robot State Publisher
     robot_state_publisher_node = Node(
@@ -53,7 +59,13 @@ def generate_launch_description():
         executable='robot_state_publisher',
         name='robot_state_publisher_node',
         emulate_tty=True,
-        parameters=[params],
+        parameters=[{
+            'use_sim_time': True, 
+            'robot_description': Command([
+                'xacro ', xacro_file, 
+                ' include_laser:=', LaunchConfiguration('include_laser')
+            ])
+        }],
         output="screen"
     )
     
@@ -103,13 +115,14 @@ def generate_launch_description():
             "/tf@tf2_msgs/msg/TFMessage[gz.msgs.Pose_V",
             "/odom@nav_msgs/msg/Odometry[gz.msgs.Odometry",
             "/joint_states@sensor_msgs/msg/JointState[gz.msgs.Model",
-            "/laser_scan@sensor_msgs/msg/LaserScan[gz.msgs.LaserScan",
+            "/scan@sensor_msgs/msg/LaserScan[gz.msgs.LaserScan",
         ],
         output="screen",
     )        
     
     return LaunchDescription([
          SetParameter(name="use_sim_time", value=True),
+         declare_include_laser,
          declare_spawn_model_name,
          declare_spawn_x,
          declare_spawn_y,
